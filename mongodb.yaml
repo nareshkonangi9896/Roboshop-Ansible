@@ -8,7 +8,7 @@
         dest: /etc/yum.repos.d/
     - name: install mongodb
       ansible.builtin.yum:
-        name: mongodb
+        name: mongodb-org
         state: installed
     - name: start and enable mongodb service
       ansible.builtin.service:
