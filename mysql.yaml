@@ -1,0 +1,20 @@
+- name: mysql setup
+  hosts: mysql
+  become: yes
+  tasks:
+    - name: copy mysql repo file
+      ansible.builtin.copy:
+        src: mysql.repo
+        dest: /etc/yum.repos.d/
+    - name: Install one specific version of mysql
+      ansible.builtin.yum:
+        name: mysql-community-server-5.7
+        state: present
+    - name: start and enable mysql service
+      ansible.builtin.service:
+        name: mongod
+        state: started
+        enabled: yes
+    - name: Set root password for mysql
+      ansible.builtin.command: mysql_secure_installation --set-root-pass RoboShop@1
+

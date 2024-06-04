@@ -1,2 +1,5 @@
 [mongodb]
 mongodb.nareshdevops.online
+
+[redis]
+redis.nareshdevops.online
