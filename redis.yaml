@@ -1,5 +1,6 @@
 - name: Redis setup
   hosts: redis
+  become: yes
   tasks:
     - name: redis repo file install
       ansible.builtin.command:
