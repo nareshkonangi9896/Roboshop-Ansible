@@ -11,6 +11,7 @@
     - name: check user exit or not
       ansible.builtin.command: id roboshop
       register: output
+      ignore_errors: True
     - name: Create a user
       ansible.builtin.user:
         name: roboshop
