@@ -11,23 +11,42 @@
     - name: check user exit or not
       ansible.builtin.command: id roboshop
       register: output
-    - name: check user exit or not
-      ansible.builtin.debug:
-        "output of {{output}}"
+    - name: Create a user
+      ansible.builtin.user:
+        name: roboshop
+      when: output.rc!=0
+    - name: Download catalogue.zip
+      ansible.builtin.get_url:
+        url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
+        dest: /tmp/catalogue.zip
+    - name: unzip catalogue.zip file
+      ansible.builtin.unarchive:
+        src: /tmp/catalogue.zip
+        dest: /app/
+    - name: install dependencies
+      ansible.builtin.shell: npm install
+      args:
+        chdir: /app/
+    - name: copy catalogue service file
+      ansible.builtin.copy:
+        src: catalogue.service
+        dest: /etc/systemd/system/
+
+    - name: enable and start catalogue service
+      ansible.builtin.systemd_service:
+        state: started
+        daemon_reload: true
+        enabled: yes
+        name: catalogue
+    - name: copy mongodb repo file
+      ansible.builtin.copy:
+        src: mongo.repo
+        dest: /etc/yum.repos.d/
+    - name: Install mongodb client
+      ansible.builtin.yum:
+        name: mongodb-org-shell
+        state: present
+
+    - name: Load schema
+      ansible.builtin.shell: mongo --host mongodb.nareshdevops.online < /app/schema/catalogue.js
     
-      
-
-
-
-
-  
-    # - name: start and enable rabbitmq service
-    #   ansible.builtin.service:
-    #     name: rabbitmq-server
-    #     state: started
-    #     enabled: yes
-    # - name: add roboshop user and password
-    #   ansible.builtin.shell: rabbitmqctl add_user roboshop roboshop123
-
-    # - name: Set permissions for roboshop user
-    #   ansible.builtin.shell: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
