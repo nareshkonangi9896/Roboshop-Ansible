@@ -6,3 +6,6 @@ redis.nareshdevops.online
 
 [mysql]
 mysql.nareshdevops.online
+
+[rabbitmq]
+rabbitmq.nareshdevops.online
