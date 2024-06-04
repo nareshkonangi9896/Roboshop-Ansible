@@ -7,7 +7,7 @@
         name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm 
         state: present
     - name: enable 6.2 version
-      ansible.builtin.command: yum module enable redis:remi-6.2 -y"
+      ansible.builtin.command: yum module enable redis:remi-6.2 -y
     - name:
       ansible.builtin.yum:
         name: redis
