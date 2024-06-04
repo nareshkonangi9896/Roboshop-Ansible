@@ -8,13 +8,13 @@
       ansible.builtin.copy:
         src: mysql.repo
         dest: /etc/yum.repos.d/
-    - name: Install one specific version of mysql
+    - name: Install mysql
       ansible.builtin.yum:
         name: mysql-community-server
         state: present
     - name: start and enable mysql service
       ansible.builtin.service:
-        name: mongod
+        name: mysqld
         state: started
         enabled: yes
     - name: Set root password for mysql
