@@ -1,0 +1,33 @@
+- name: Catalogue setup
+  hosts: rabbitmq
+  become: yes
+  tasks:
+    - name: setup rabbitmq repo file
+      ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+    - name: Install nodejs
+      ansible.builtin.yum:
+        name: nodejs
+        state: present
+    - name: check user exit or not
+      ansible.builtin.command: id roboshop
+      register: output
+    - name: check user exit or not
+      ansible.builtin.debug:
+        "output of {{output}}"
+    
+      
+
+
+
+
+  
+    # - name: start and enable rabbitmq service
+    #   ansible.builtin.service:
+    #     name: rabbitmq-server
+    #     state: started
+    #     enabled: yes
+    # - name: add roboshop user and password
+    #   ansible.builtin.shell: rabbitmqctl add_user roboshop roboshop123
+
+    # - name: Set permissions for roboshop user
+    #   ansible.builtin.shell: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
