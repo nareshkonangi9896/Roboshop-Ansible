@@ -35,6 +35,7 @@
       ansible.builtin.copy:
         src: target/shipping-1.0.jar
         dest: /app/shipping.jar
+        remote_src: yes
 
     - name: copy shipping service file
       ansible.builtin.copy:
