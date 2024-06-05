@@ -32,11 +32,9 @@
       args:
         chdir: /app/
     - name: move jar file from target directory
-      ansible.builtin.copy:
-        src: target/shipping-1.0.jar
-        dest: /app/shipping.jar
-        remote_src: yes
-
+      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+      args:
+      chdir: /app
     - name: copy shipping service file
       ansible.builtin.copy:
         src: shipping.service
