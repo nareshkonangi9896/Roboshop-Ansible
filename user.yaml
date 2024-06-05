@@ -1,5 +1,5 @@
-- name: Catalogue setup
-  hosts: catalogue
+- name: user setup
+  hosts: user
   become: yes
   tasks:
     - name: setup rabbitmq repo file
@@ -8,7 +8,7 @@
       ansible.builtin.yum:
         name: nodejs
         state: present
-    - name: check roboshop user exit or not
+    - name: check roboshop user  exit or not
       ansible.builtin.command: id roboshop
       register: output
       ignore_errors: True
@@ -20,30 +20,30 @@
       ansible.builtin.file:
         path: /app/
         state: directory
-    - name: Download catalogue.zip
+    - name: Download user.zip
       ansible.builtin.get_url:
-        url: https://roboshop-builds.s3.amazonaws.com/catalogue.zip
-        dest: /tmp/catalogue.zip
-    - name: unzip catalogue.zip file
+        url: https://roboshop-builds.s3.amazonaws.com/user.zip
+        dest: /tmp/user.zip
+    - name: unzip user.zip file
       ansible.builtin.unarchive:
-        src: /tmp/catalogue.zip
+        src: /tmp/user.zip
         dest: /app/
         remote_src: yes
     - name: install dependencies
       ansible.builtin.command: npm install
       args:
         chdir: /app/
-    - name: copy catalogue service file
+    - name: copy user service file
       ansible.builtin.copy:
-        src: catalogue.service
+        src: user.service
         dest: /etc/systemd/system/
 
-    - name: enable and start catalogue service
+    - name: enable and start user service
       ansible.builtin.systemd_service:
         state: started
         daemon_reload: true
         enabled: yes
-        name: catalogue
+        name: user
     - name: copy mongodb repo file
       ansible.builtin.copy:
         src: mongo.repo
@@ -54,5 +54,5 @@
         state: present
 
     - name: Load schema
-      ansible.builtin.shell: mongo --host mongodb.nareshdevops.online < /app/schema/catalogue.js
+      ansible.builtin.shell: mongo --host mongodb.nareshdevops.online < /app/schema/user.js
     

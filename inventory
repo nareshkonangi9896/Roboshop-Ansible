@@ -9,3 +9,6 @@ mysql.nareshdevops.online
 
 [rabbitmq]
 rabbitmq.nareshdevops.online
+
+[catalogue]
+catalogue.nareshdevops.online
