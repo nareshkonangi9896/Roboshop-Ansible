@@ -12,3 +12,21 @@ rabbitmq.nareshdevops.online
 
 [catalogue]
 catalogue.nareshdevops.online
+
+[cart]
+cart.nareshdevops.online
+
+[user]
+user.nareshdevops.online
+
+[payment]
+payment.nareshdevops.online
+
+[dispatch]
+dispatch.nareshdevops.online
+
+[shipping]
+shipping.nareshdevops.online
+
+[web]
+web.nareshdevops.online
