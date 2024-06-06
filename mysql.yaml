@@ -2,7 +2,7 @@
   hosts: mysql
   become: yes
   tasks:
-    - name: copy mysql repo file
+    - name: disable mysql
       ansible.builtin.command: yum module disable mysql -y 
     - name: copy mysql repo file
       ansible.builtin.copy:
