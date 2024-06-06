@@ -2,7 +2,7 @@
   hosts: dispatch
   become: yes
   tasks:
-    - name: Install python
+    - name: Install golang
       ansible.builtin.yum:
         name: golang
         state: present
